@@ -13,7 +13,7 @@ _every document has key words e.g. *Margaret Thatcher*_
 
 _every document has a label e.g. *Politics*_
 
-Supose, that in every document there are *key words all starting with an uppercase letter*. We store these words in our DB end every time we need to guess a document against a particular *label*, we use Bayes algorithm.
+Suppose, that in every document there are *key words all starting with an uppercase letter*. We store these words in our DB end every time we need to guess a document against a particular *label*, we use Bayes algorithm.
 
 Let's clear that out:
 
