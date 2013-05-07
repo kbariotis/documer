@@ -27,7 +27,7 @@ Let's clear that out:
 						
 * Basic DB Schema
 	
-	`CREATE TABLE IF NOT EXISTS 'labels' (\n
+	`CREATE TABLE IF NOT EXISTS 'labels' <br>
 	  'id' int(11) NOT NULL AUTO_INCREMENT,\n
 	  'name' varchar(64) CHARACTER SET utf8 NOT NULL,\n
 	  PRIMARY KEY ('id')\n
