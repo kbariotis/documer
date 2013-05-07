@@ -21,10 +21,7 @@ Doc classifier
 	
 		for every label in DB
 			for every key word in document
-				P(label/word) = P(word/label)P(label) / 
-					( 
-						P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) 
-					)
+				P(label/word) = P(word/label)P(label) /	( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )
 						
 * Basic DB Schema
 	
