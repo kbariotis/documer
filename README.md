@@ -31,9 +31,9 @@ Let's clear that out:
 	  'id' int(11) NOT NULL AUTO_INCREMENT,
 	  'name' varchar(64) CHARACTER SET utf8 NOT NULL,
 	  PRIMARY KEY ('id')
-	);
+	);`
 
-	CREATE TABLE IF NOT EXISTS 'words' (
+	`CREATE TABLE IF NOT EXISTS 'words' (
 	  'id' int(11) NOT NULL AUTO_INCREMENT,
 	  'label' varchar(64) CHARACTER SET utf8 NOT NULL,
 	  'name' varchar(64) CHARACTER SET utf8 NOT NULL,
