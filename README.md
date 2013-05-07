@@ -16,9 +16,11 @@ Doc classifier
 	Let's clear that out:
 
 * Training:
+
 	First, we tokenize the document and keep only our key words(All words starting with an uppercase letter) in an array. We store that array in our DB(See example schema below). 
 
 * Guessing:
+
 	This is very simple. Again, we parse the document we want to be classified and create an array with the key words. Here is the pseudo code:
 	
 		for every label in DB
@@ -26,7 +28,6 @@ Doc classifier
 				P(label/word) = P(word/label)P(label) /	( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )
 						
 * Basic DB Schema
-	
 	
 		CREATE TABLE IF NOT EXISTS 'labels' (
 			'id' int(11) NOT NULL AUTO_INCREMENT,
@@ -42,9 +43,11 @@ Doc classifier
 		);
 
 
-* Proof of concept
+* Proof of concept:
+
 	I have setup a simple interface (index.php) for the proof of concept. Download all files in your root directory of your web server. Create a new database with the above tables. Setup the classifier.class.php with your credentials and start training. After some training shoot a document in and get your results!
 
 
 ###I am looking forward for your thoughts on this. Thank you!
+
 Kostas Bariotis
