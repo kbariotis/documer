@@ -152,7 +152,7 @@ Class Classifier {
 					// the probability that this document is a particular LABEL given that a particular WORD is in it
 					$wordicity = $wordProbability / ($wordProbability + $wordInverseProbability);
 					
-					// here 1 is the weight, higher training data in the db means higher weight
+					// here 0.5 is the weight, higher training data in the db means higher weight
 					$wordicity = ( (10 * 0.5) + ($stemTotalCount['total'] * $wordicity) ) / ( 10 + $stemTotalCount['total'] );
 					
 					// *
