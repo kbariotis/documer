@@ -44,6 +44,7 @@ Class Classifier {
 	}
 
 	// this will return if a word is starting with an Uppercase letter, with UTF-8 Support
+	// http://stackoverflow.com/questions/2814880/how-to-check-if-letter-is-upper-or-lower-in-php
 	private function starts_with_upper($str) {
 		$chr = mb_substr ($str, 0, 1, "UTF-8");
 		// must be first uppercase letter and more than 2 letters
