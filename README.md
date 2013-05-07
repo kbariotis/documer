@@ -19,14 +19,12 @@ Let's clear that out:
 * Guessing:
 	This is very simple. Again, we parse the document we want to be classified and create an array with the key words. Here is the pseudo code:
 	
-<
-	for every label in DB
-		for every key word in document
-			P(label/word) = P(word/label)P(label) / 
-				( 
-					P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) 
-				)
->
+		<for every label in DB
+			for every key word in document
+				P(label/word) = P(word/label)P(label) / 
+					( 
+						P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) 
+					)>
 						
 * Basic DB Schema
 	
