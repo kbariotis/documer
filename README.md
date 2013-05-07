@@ -28,11 +28,13 @@ _author: [kbariotis](mailto:konmpar@gmail.com)_
 						
 * ###Basic DB Schema
 	
-		```CREATE TABLE IF NOT EXISTS 'labels' (
-			'id' int(11) NOT NULL AUTO_INCREMENT,
-			'name' varchar(64) CHARACTER SET utf8 NOT NULL,
-			PRIMARY KEY ('id')\n`
-		);```
+```
+CREATE TABLE IF NOT EXISTS 'labels' (
+'id' int(11) NOT NULL AUTO_INCREMENT,
+'name' varchar(64) CHARACTER SET utf8 NOT NULL,
+PRIMARY KEY ('id')\n`
+);
+```
 		
 		CREATE TABLE IF NOT EXISTS 'words' (
 			'id' int(11) NOT NULL AUTO_INCREMENT,
