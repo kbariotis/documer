@@ -2,9 +2,9 @@ Document classifier based on Bayes Algorithm
 ==============
 _author: [kbariotis](mailto:konmpar@gmail.com)_
 
-	That's a basic document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
-
 * ###Basic Concept
+	
+	That's a basic document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
 
 	_every document has key words e.g. *Margaret Thatcher*_
 	
