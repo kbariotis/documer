@@ -1,7 +1,7 @@
 Doc classifier
-==========
+==============
  
-* author: [kbariotis](mailto:konmpar@gmail.com) *
+* author: [kbariotis](mailto:konmpar@gmail.com)
 
 That's a basic document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
 
@@ -20,7 +20,10 @@ Let's clear that out:
 	
 	`for every label in DB
 		for every key word in document
-			P(label/word) = P(word/label)P(label) / ( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )`
+			P(label/word) = P(word/label)P(label) / 
+				( 
+					P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) 
+				)`
 						
 * Basic DB Schema
 	
