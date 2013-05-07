@@ -27,18 +27,22 @@ Let's clear that out:
 						
 * Basic DB Schema
 	
-<pre>	`CREATE TABLE IF NOT EXISTS 'labels' (`
-		`'id' int(11) NOT NULL AUTO_INCREMENT,`
-		`'name' varchar(64) CHARACTER SET utf8 NOT NULL,`
-		`PRIMARY KEY ('id')\n`
-	`);`
+<pre>	
+	CREATE TABLE IF NOT EXISTS 'labels' (
+		'id' int(11) NOT NULL AUTO_INCREMENT,
+		'name' varchar(64) CHARACTER SET utf8 NOT NULL,
+		PRIMARY KEY ('id')\n`
+	);
+</pre>
 
-	`CREATE TABLE IF NOT EXISTS 'words' (
+<pre>	
+	CREATE TABLE IF NOT EXISTS 'words' (
 		'id' int(11) NOT NULL AUTO_INCREMENT,
 		'label' varchar(64) CHARACTER SET utf8 NOT NULL,
 		'name' varchar(64) CHARACTER SET utf8 NOT NULL,
 		PRIMARY KEY ('id')
-	);`
+	);
+</pre>
 
 * Proof of concept
 	I have setup a simple interface (index.php) for the proof of concept. Download all files in your root directory of your web server. Create a new database with the above tables. Setup the classifier.class.php with your credentials and start training. After some training shoot a document in and get your results!
