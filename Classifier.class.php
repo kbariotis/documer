@@ -2,7 +2,7 @@
 /**
  *
  * A simple document classifier
- * @author: [kbariotis](mailto:konmpar@gmail.com) 
+ * @author: kbariotis (konmpar at gmail dot com) 
  * 
  * That's a basic document classification algorithm inspired by Burak Kanber at 
  * http://burakkanber.com/blog/machine-learning-naive-bayes-1/( Thanks for the great article dude! ). I basicaly rewrite the code in PHP 
