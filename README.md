@@ -4,7 +4,7 @@ _author: [kbariotis](mailto:konmpar@gmail.com)_
 
 Description
 -----------------------------
-That's a basic document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
+Document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
 
 Basic Concept
 -----------------------------
