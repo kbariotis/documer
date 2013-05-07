@@ -47,5 +47,5 @@ Doc classifier
 	I have setup a simple interface (index.php) for the proof of concept. Download all files in your root directory of your web server. Create a new database with the above tables. Setup the classifier.class.php with your credentials and start training. After some training shoot a document in and get your results!
 
 
-I am looking forward for your thoughts on this. Thank you!
+###I am looking forward for your thoughts on this. Thank you!
 Kostas Bariotis
