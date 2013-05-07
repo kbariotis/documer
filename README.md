@@ -27,17 +27,17 @@ Let's clear that out:
 						
 * Basic DB Schema
 	
-	`CREATE TABLE IF NOT EXISTS 'labels' 
-		'id' int(11) NOT NULL AUTO_INCREMENT,\n
-	  'name' varchar(64) CHARACTER SET utf8 NOT NULL,\n
-	  PRIMARY KEY ('id')\n
-	);`
+	`CREATE TABLE IF NOT EXISTS 'labels' `
+		`'id' int(11) NOT NULL AUTO_INCREMENT,`
+		`'name' varchar(64) CHARACTER SET utf8 NOT NULL,`
+		`PRIMARY KEY ('id')\n`
+	`);`
 
-	`CREATE TABLE IF NOT EXISTS 'words' (\n
-	  'id' int(11) NOT NULL AUTO_INCREMENT,
-	  'label' varchar(64) CHARACTER SET utf8 NOT NULL,
-	  'name' varchar(64) CHARACTER SET utf8 NOT NULL,
-	  PRIMARY KEY ('id')
+	`CREATE TABLE IF NOT EXISTS 'words' (
+		'id' int(11) NOT NULL AUTO_INCREMENT,
+		'label' varchar(64) CHARACTER SET utf8 NOT NULL,
+		'name' varchar(64) CHARACTER SET utf8 NOT NULL,
+		PRIMARY KEY ('id')
 	);`
 
 * Proof of concept
