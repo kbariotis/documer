@@ -23,12 +23,12 @@
 
 <form name="insert" action="" method="POST">
 	<textarea rows="15" cols="100" name="text" placeholder="Place training data here"></textarea>
-	<label for="label">Σε ποια κατηγορία ανήκει το άρθρο σας;</label>
+	<label for="label">Select label</label>
 	<select name="label">
-		<option value ="Πολιτικά">Politics</option>
-		<option value ="Αθλητικά">Sports</option>
-		<option value ="Κοινωνικά">Social</option>
-		<option value ="Ψυχαγωγία">Entertainment</option>
+		<option value ="Politics">Politics</option>
+		<option value ="Sports">Sports</option>
+		<option value ="Social">Social</option>
+		<option value ="Entertainment">Entertainment</option>
 	</select>
 	<input type="submit" value="Train me">
 </form>
