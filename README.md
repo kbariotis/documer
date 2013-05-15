@@ -6,7 +6,7 @@ Description
 -----------------------------
 Document classification algorithm inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). I basicaly rewrite the code in PHP and added some modifications to create a document classification example rather than a language detection system.
 
-Basic Concept
+Concept
 -----------------------------
 
 _every document has key words e.g. *Margaret Thatcher*_
@@ -29,7 +29,7 @@ Let's clear that out:
 			for every key word in document
 				P(label/word) = P(word/label)P(label) /	( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )
 						
-* ###Basic DB Schema
+* ###DB Schema
 	
 	```sql
 	CREATE TABLE IF NOT EXISTS 'labels' (
