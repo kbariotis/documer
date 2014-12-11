@@ -44,11 +44,11 @@ Class Classifier
 
         $this->words = $this->parse($text);
 
-        $this->db = new DbConnect("host", "username", "password", "dbname", $error_reporting = true,
-                                  $persistent = false);
-        $this->db->open() or die($this->db->error());
+        $cfg = new \Spot\Config();
 
-        $this->db->query("SET NAMES UTF8") or die($db->error());
+        $cfg->addConnection('sqlite', 'sqlite://../data/database.sqlite');
+
+        $this->db = new \Spot\Locator($cfg);
 
     }
 
