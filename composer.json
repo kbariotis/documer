@@ -1,0 +1,19 @@
+{
+  "name": "kbariotis/doc-classifier",
+  "description": "A Document Classifier library using Bayes Algorithm",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kostas Bariotis",
+      "email": "konmpar@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/spot2": "~2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Classifier\\": "src/"
+    }
+  }
+}

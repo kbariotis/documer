@@ -1,4 +1,7 @@
 <?php
+
+namespace Classifier\Classifier;
+
 /**
  *
  * A simple document classifier
@@ -10,18 +13,28 @@
  * and added some modifications to create a document classification example rather than a language detection system.
  *
  */
-
-require_once("DbConnect.class.php");
-
 Class Classifier
 {
 
-    var $text; /* holds the input text from the user */
-    var $label; /* holds the input label from the user */
+    /**
+     * @var string the input text from the user
+     */
+    var $text;
 
-    var $db; /* DB connection object */
+    /*
+     * @var string the input label from the user
+     */
+    var $label;
 
-    var $words = array(); /* holds the keywords we are going to use */
+    /**
+     * @var Spot Spot Object
+     */
+    var $db;
+
+    /**
+     * @var array the keywords we are going to use
+     */
+    var $words = array();
 
 
     function __construct($text = '', $label = '')
@@ -31,13 +44,10 @@ Class Classifier
 
         $this->words = $this->parse($text);
 
-        //Set up all yor paramaters for connection
         $this->db = new DbConnect("host", "username", "password", "dbname", $error_reporting = true,
                                   $persistent = false);
-        //Open the connection to your database
         $this->db->open() or die($this->db->error());
 
-        //required for non UTF-8 databases
         $this->db->query("SET NAMES UTF8") or die($db->error());
 
     }
