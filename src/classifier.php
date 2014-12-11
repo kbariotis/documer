@@ -66,13 +66,18 @@ Class Classifier
     public function train()
     {
 
-        // put the label in the db
-        $this->db->query("INSERT INTO labels VALUES('', '$this->label')") or die($this->db->error());
+        $labelMapper = $this->db->mapper('Classifier\Entity\Label');
+        $label       = $labelMapper->get();
+        $label->name = $this->label;
+        $labelMapper->insert($label);
 
-        // put each keyword in the db with it's label
         $words = $this->words;
         for ($i = 0; $i < count($words); $i++) {
-            $this->db->query("INSERT INTO words VALUES('', '$this->label', '$words[$i]')") or die($this->db->error());
+            $wordMapper  = $this->db->mapper('Classifier\Entity\Word');
+            $word        = $wordMapper->get();
+            $word->label = $this->label;
+            $word->name  = $words[ $i ];
+            $wordMapper->insert($word);
         }
 
     }
