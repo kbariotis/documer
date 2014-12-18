@@ -46,7 +46,7 @@ Documer uses Spot2 to store it's knowledge. Spot2 supports MySQL/SQLite.
 
 Pass a [Spot](https://github.com/vlucas/spot2) object with your configuration to `getInstance`.
 
-```
+```php
 $cfg = new \Spot\Config();
 $cfg->addConnection('mysql', 'mysql://user:password@localhost/documer');
 $spot = new \Spot\Locator($cfg);
@@ -57,13 +57,13 @@ $documer = Classifier\Classifier::getInstance($spot);
 
 **Train**
 
-```
+```php
 $documer->train("politics", "A big and long text about a political act");
 ```
 
 **Guess**
 
-```
+```php
 $scores = $documer->guess("And an other big and long text about a political act");
 ```
 
