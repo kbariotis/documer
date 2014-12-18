@@ -1,6 +1,6 @@
 <?php
 
-namespace Classifier\Entity\Word;
+namespace Classifier\Entity;
 
 class Word extends \Spot\Entity
 {
@@ -9,9 +9,11 @@ class Word extends \Spot\Entity
     public static function fields()
     {
         return [
-            'id'   => ['type' => 'integer', 'autoincrement' => true, 'primary' => true],
-            'name' => ['type' => 'string', 'required' => true, 'index' => true],
-            'label' => ['type' => 'string', 'required' => true, 'index' => true]
+            'id'           => ['type' => 'integer', 'autoincrement' => true, 'primary' => true],
+            'name'         => ['type' => 'string', 'required' => true, 'index' => true],
+            'label'        => ['type' => 'string', 'required' => true, 'index' => true],
+            'date_created' => ['type' => 'datetime', 'value' => new \DateTime()]
+
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Classifier\Entity\Label;
+namespace Classifier\Entity;
 
 class Label extends \Spot\Entity
 {
@@ -9,8 +9,9 @@ class Label extends \Spot\Entity
     public static function fields()
     {
         return [
-            'id'   => ['type' => 'integer', 'autoincrement' => true, 'primary' => true],
-            'name' => ['type' => 'string', 'required' => true, 'index' => true]
+            'id'           => ['type' => 'integer', 'autoincrement' => true, 'primary' => true],
+            'name'         => ['type' => 'string', 'required' => true, 'index' => true],
+            'date_created' => ['type' => 'datetime', 'value' => new \DateTime()]
         ];
     }
 }
