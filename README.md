@@ -15,19 +15,19 @@ Let's clear that out:
 
 **Training:**
 
-	First, we tokenize the document and keep only our key words(All words starting with an uppercase letter) in an array. We store that array in our DB(See example schema below).
+First, we tokenize the document and keep only our key words(All words starting with an uppercase letter) in an array. We store that array in our DB(See example schema below).
 
 **Guessing:**
 
-	This is very simple. Again, we parse the document we want to be classified and create an array with the key words. Here is the pseudo code:
+This is very simple. Again, we parse the document we want to be classified and create an array with the key words. Here is the pseudo code:
 
-		for every label in DB
-			for every key word in document
-				P(label/word) = P(word/label)P(label) /	( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )
+	for every label in DB
+		for every key word in document
+			P(label/word) = P(word/label)P(label) /	( P(word/label)P(label) + (1 - P(word/label))(1 - P(label)) )
 
 Usage
 ------------
-Documer uses Spot2 to store it's knowledge. Spot2 supports MySQL/SQLite.
+Documer uses [Spot2](https://github.com/vlucas/spot2) to store it's knowledge. Spot2 supports MySQL/SQLite.
 
 **Install through composer**
 
@@ -39,7 +39,7 @@ Documer uses Spot2 to store it's knowledge. Spot2 supports MySQL/SQLite.
 
 **Instantiate**
 
-Pass a [Spot](https://github.com/vlucas/spot2) object with your configuration to `getInstance`.
+Pass a Spot object with your configuration to `getInstance`.
 
 ```php
 $cfg = new \Spot\Config();
