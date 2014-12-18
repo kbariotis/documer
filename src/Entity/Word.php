@@ -1,6 +1,6 @@
 <?php
 
-namespace Classifier\Entity;
+namespace Documer\Entity;
 
 class Word extends \Spot\Entity
 {

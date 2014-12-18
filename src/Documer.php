@@ -1,20 +1,8 @@
 <?php
 
-namespace Classifier;
+namespace Documer;
 
-/**
- *
- * A simple document classifier
- *
- * @author: kbariotis (konmpar at gmail dot com)
- *
- * That's a basic document classification algorithm inspired by Burak Kanber at
- * http://burakkanber.com/blog/machine-learning-naive-bayes-1/( Thanks for the great article dude! ).
- * I basicaly rewrite the code in PHP
- * and added some modifications to create a document classification example rather than a language detection system.
- *
- */
-Class Classifier
+Class Documer
 {
 
     /**
@@ -42,7 +30,6 @@ Class Classifier
 
         $chr = mb_substr($str, 0, 1, "UTF-8");
 
-        // must be first uppercase letter and more than 2 letters
         return mb_strtolower($chr, "UTF-8") != $chr && mb_strlen($str, "UTF-8") > 1;
     }
 
@@ -57,7 +44,7 @@ Class Classifier
 
         $keywords = $this->parse($text);
 
-        $labelMapper = $this->db->mapper('Classifier\Entity\Label');
+        $labelMapper = $this->db->mapper('Documer\Entity\Label');
         $labelMapper->migrate();
         $labelModel       = $labelMapper->get();
         $labelModel->name = $label;
@@ -65,7 +52,7 @@ Class Classifier
 
         foreach ($keywords as $k) {
 
-            $wordMapper = $this->db->mapper('Classifier\Entity\Word');
+            $wordMapper = $this->db->mapper('Documer\Entity\Word');
             $wordMapper->migrate();
             $wordModel        = $wordMapper->get();
             $wordModel->label = $label;
@@ -182,7 +169,7 @@ Class Classifier
      */
     public function getTotalDocs()
     {
-        $labelMapper = $this->db->mapper('Classifier\Entity\Label');
+        $labelMapper = $this->db->mapper('Documer\Entity\Label');
 
         return count($labelMapper->all());
     }
@@ -194,7 +181,7 @@ Class Classifier
      */
     public function getTotalDocsGroupByLabel()
     {
-        $labelMapper = $this->db->mapper('Classifier\Entity\Label');
+        $labelMapper = $this->db->mapper('Documer\Entity\Label');
 
         $eachLabelTotal = $labelMapper->query("SELECT name, COUNT( name ) AS total FROM labels GROUP BY name");
 
@@ -207,7 +194,7 @@ Class Classifier
 
     public function getDistinctLabels()
     {
-        $labelMapper = $this->db->mapper('Classifier\Entity\Label');
+        $labelMapper = $this->db->mapper('Documer\Entity\Label');
 
         $collection = $labelMapper->query("SELECT DISTINCT(name) FROM labels");
         $labels     = array();
@@ -245,7 +232,7 @@ Class Classifier
      */
     public function getWordCount($word)
     {
-        $wordMapper = $this->db->mapper('Classifier\Entity\Word');
+        $wordMapper = $this->db->mapper('Documer\Entity\Word');
 
         return count(
             $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name= :word",
@@ -265,7 +252,7 @@ Class Classifier
      */
     public function getWordProbabilityWithLabel($word, $label)
     {
-        $wordMapper = $this->db->mapper('Classifier\Entity\Word');
+        $wordMapper = $this->db->mapper('Documer\Entity\Word');
 
         $wordProbabilityTemp =
             $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name=:word AND label=:label",
@@ -289,7 +276,7 @@ Class Classifier
      */
     public function getInverseWordProbabilityWithLabel($word, $label)
     {
-        $wordMapper = $this->db->mapper('Classifier\Entity\Word');
+        $wordMapper = $this->db->mapper('Documer\Entity\Word');
 
         $wordInverseProbabilityTemp =
             $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name=:word AND label <> :label",
@@ -306,7 +293,7 @@ Class Classifier
     /**
      * Singleton Pattern
      *
-     * @return Classifier
+     * @return Documer
      */
     public static function getInstance($spot)
     {
