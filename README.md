@@ -1,11 +1,6 @@
-Bayes algorithm implementation in PHP for auto document classification.
+Documer
 ==============
-_author: [kbariotis](mailto:konmpar@gmail.com)_
-
-Description
------------------------------
-Inspired by [Burak Kanber](http://burakkanber.com/blog/machine-learning-naive-bayes-1/). Thank you for that great
-article!
+Bayes algorithm implementation in PHP for auto document classification.
 
 Concept
 -----------------------------
@@ -69,7 +64,3 @@ $scores = $documer->guess("And an other big and long text about a political act"
 
 `$scores` will hold an array with all labels of your system and the posibbility which the document will belong to
 each label.
-
-**I am looking forward for your thoughts on this. Thank you!**
-
-_Kostas Bariotis_
