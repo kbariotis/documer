@@ -46,7 +46,7 @@ $cfg = new \Spot\Config();
 $cfg->addConnection('mysql', 'mysql://user:password@localhost/documer');
 $spot = new \Spot\Locator($cfg);
 
-$documer = Classifier\Classifier::getInstance($spot);
+$documer = Documer\Documer::getInstance($spot);
 
 ```
 
