@@ -2,10 +2,14 @@
   "name": "kbariotis/documer",
   "description": "Bayes algorithm implementation in PHP for auto document classification.",
   "license": "MIT",
+  "type": "library",
+  "keywords": ["classification","bayes","machine learning"],
+  "homepage": "http://github.com/kbariotis/documer",
   "authors": [
     {
       "name": "Kostas Bariotis",
-      "email": "konmpar@gmail.com"
+      "email": "konmpar@gmail.com",
+      "homepage": "http://kostasbariotis.com"
     }
   ],
   "require": {
