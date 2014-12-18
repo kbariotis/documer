@@ -15,7 +15,7 @@ Let's clear that out:
 
 **Training:**
 
-First, we tokenize the document and keep only our key words(All words starting with an uppercase letter) in an array. We store that array in our DB(See example schema below).
+First, we tokenize the document and keep only our key words (All words starting with an uppercase letter) in an array. We store that array in our DB.
 
 **Guessing:**
 
@@ -53,13 +53,13 @@ $documer = Classifier\Classifier::getInstance($spot);
 **Train**
 
 ```php
-$documer->train("politics", "A big and long text about a political act");
+$documer->train("politics", "A big and long text about a political Act and a Famous Person");
 ```
 
 **Guess**
 
 ```php
-$scores = $documer->guess("And an other big and long text about a political act");
+$scores = $documer->guess("And an other big and long text about a political Act and a Famous Person");
 ```
 
 `$scores` will hold an array with all labels of your system and the posibbility which the document will belong to
