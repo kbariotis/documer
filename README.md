@@ -27,8 +27,6 @@ This is very simple. Again, we parse the document we want to be classified and c
 
 Usage
 ------------
-Documer uses [Spot2](https://github.com/vlucas/spot2) to store it's knowledge. Spot2 supports MySQL/SQLite.
-
 **Install through composer**
 
 ```json
@@ -39,28 +37,30 @@ Documer uses [Spot2](https://github.com/vlucas/spot2) to store it's knowledge. S
 
 **Instantiate**
 
-Pass a Spot object with your configuration to `getInstance`.
+Pass a Storage Adapter object to the Documer Constructor.
 
 ```php
-$cfg = new \Spot\Config();
-$cfg->addConnection('mysql', 'mysql://user:password@localhost/documer');
-$spot = new \Spot\Locator($cfg);
 
-$documer = Documer\Documer::getInstance($spot);
-
+$documer = new Documer\Documer(new \Documer\Storage\Memory());
 ```
 
 **Train**
 
 ```php
-$documer->train("politics", "A big and long text about a political Act and a Famous Person");
-```
+$documer->train('politics', 'This is text about Politics and more');
+$documer->train('philosophy', 'Socrates is an ancent Greek philosopher');
+$documer->train('athletic', 'Have no idea about athletics. Sorry.');
+$documer->train('athletic', 'Not a clue.');
+$documer->train('athletic', 'It's just not my thing.');```
 
 **Guess**
 
 ```php
-$scores = $documer->guess("And an other big and long text about a political Act and a Famous Person");
+$scores = $documer->guess('What do we know about Socrates?');
 ```
 
 `$scores` will hold an array with all labels of your system and the posibbility which the document will belong to
 each label.
+
+**Storage Adapters**
+Implement [Documer\Storage\Adapter](src/Documer/Storage/Adapter] to create your own Storage Adapter.
