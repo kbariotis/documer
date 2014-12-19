@@ -51,7 +51,8 @@ $documer->train('politics', 'This is text about Politics and more');
 $documer->train('philosophy', 'Socrates is an ancent Greek philosopher');
 $documer->train('athletic', 'Have no idea about athletics. Sorry.');
 $documer->train('athletic', 'Not a clue.');
-$documer->train('athletic', 'It is just not my thing.');```
+$documer->train('athletic', 'It is just not my thing.');
+```
 
 **Guess**
 
