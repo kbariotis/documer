@@ -12,9 +12,7 @@
       "homepage": "http://kostasbariotis.com"
     }
   ],
-  "require": {
-    "vlucas/spot2": "~2.1"
-  },
+  "require": {},
   "autoload": {
     "psr-4": {
       "Documer\\": "src/"
