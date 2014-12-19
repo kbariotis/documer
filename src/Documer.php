@@ -158,6 +158,20 @@ Class Documer
         return $scores;
     }
 
+    /**
+     * Check if text is of the given label
+     *
+     * @param $label
+     * @param $text
+     */
+    public function is($label, $text) {
+        $scores = $this->guess($text);
+
+        $value = max($scores);
+
+        return $label == array_search($value, $scores);
+    }
+
 
     /**
      * Get total documents the system has been trained,
