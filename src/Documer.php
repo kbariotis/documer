@@ -2,20 +2,22 @@
 
 namespace Documer;
 
+use Documer\Storage\Adapter;
+
 Class Documer
 {
 
     /**
-     * @var Spot Spot Object
+     * @var Adapter Storage Adapter
      */
-    var $db;
+    var $storage;
 
-    function __construct(\Spot\Locator $spot)
+    function __construct($storage)
     {
-        date_default_timezone_set('Europe/Athens');
-
-        $this->db = $spot;
-
+        if($storage instanceof Adapter)
+            $this->storage = $storage;
+        else
+            throw new \Exception('Storage must implement Documer\Storage\Adapter interface.');
     }
 
     /**
@@ -44,20 +46,10 @@ Class Documer
 
         $keywords = $this->parse($text);
 
-        $labelMapper = $this->db->mapper('Documer\Entity\Label');
-        $labelMapper->migrate();
-        $labelModel       = $labelMapper->get();
-        $labelModel->name = $label;
-        $labelMapper->insert($labelModel);
+        $this->getStorage()->insertLabel($label);
 
         foreach ($keywords as $k) {
-
-            $wordMapper = $this->db->mapper('Documer\Entity\Word');
-            $wordMapper->migrate();
-            $wordModel        = $wordMapper->get();
-            $wordModel->label = $label;
-            $wordModel->name  = $k;
-            $wordMapper->insert($wordModel);
+            $this->getStorage()->insertWord($k, $label);
 
         }
 
@@ -103,14 +95,14 @@ Class Documer
         $scores = array();
         $words  = $this->parse($text);
 
-        $labels = $this->getDistinctLabels();
+        $labels = $this->getStorage()->getDistinctLabels();
 
         foreach ($labels as $label) {
             $logSum = 0;
 
             foreach ($words as $word) {
 
-                $wordTotalCount = $this->getWordCount($word);
+                $wordTotalCount = $this->getStorage()->getWordCount($word);
 
                 if ($wordTotalCount == 0) {
 
@@ -118,27 +110,10 @@ Class Documer
 
                 } else {
 
-                    $wordProbability        = $this->getWordProbabilityWithLabel($word, $label);
-                    $wordInverseProbability = $this->getInverseWordProbabilityWithLabel($word, $label);
+                    $wordProbability        = $this->getStorage()->getWordProbabilityWithLabel($word, $label);
+                    $wordInverseProbability = $this->getStorage()->getInverseWordProbabilityWithLabel($word, $label);
 
-                    /**
-                     * Bayes Theorem using the above parameters
-                     *
-                     * the probability that this document is a particular LABEL
-                     * given that a particular WORD is in it
-                     *
-                     */
-                    $wordicity = $wordProbability / ($wordProbability + $wordInverseProbability);
-
-                    /*
-                     * here 0.5 is the weight, higher training data in the db means higher weight
-                     */
-                    $wordicity = ((10 * 0.5) + ($wordTotalCount * $wordicity)) / (10 + $wordTotalCount);
-
-                    if ($wordicity == 0)
-                        $wordicity = 0.01;
-                    else if ($wordicity == 1)
-                        $wordicity = 0.99;
+                    $wordicity = $this->getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability);
                 }
 
                 /**
@@ -158,6 +133,29 @@ Class Documer
         return $scores;
     }
 
+    public function getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability) {
+        /**
+         * Bayes Theorem using the above parameters
+         *
+         * the probability that this document is a particular LABEL
+         * given that a particular WORD is in it
+         *
+         */
+        $wordicity = $wordProbability / ($wordProbability + $wordInverseProbability);
+
+        /*
+         * here 0.5 is the weight, higher training data in the db means higher weight
+         */
+        $wordicity = ((10 * 0.5) + ($wordTotalCount * $wordicity)) / (10 + $wordTotalCount);
+
+        if ($wordicity == 0)
+            $wordicity = 0.01;
+        else if ($wordicity == 1)
+            $wordicity = 0.99;
+
+        return $wordicity;
+    }
+
     /**
      * Check if text is of the given label
      *
@@ -172,149 +170,11 @@ Class Documer
         return $label == array_search($value, $scores);
     }
 
-
     /**
-     * Get total documents the system has been trained,
-     * by counting the number of labels (not distinct)
-     *
-     * @return int
+     * @return Adapter
      */
-    public function getTotalDocs()
-    {
-        $labelMapper = $this->db->mapper('Documer\Entity\Label');
-
-        return count($labelMapper->all());
-    }
-
-    /**
-     * Get how many documents we have seen so far for each label
-     *
-     * @return array
-     */
-    public function getTotalDocsGroupByLabel()
-    {
-        $labelMapper = $this->db->mapper('Documer\Entity\Label');
-
-        $eachLabelTotal = $labelMapper->query("SELECT name, COUNT( name ) AS total FROM labels GROUP BY name");
-
-        $docCounts = array();
-        foreach ($eachLabelTotal as $r)
-            $docCounts[ $r->name ] = $r->total;
-
-        return $docCounts;
-    }
-
-    public function getDistinctLabels()
-    {
-        $labelMapper = $this->db->mapper('Documer\Entity\Label');
-
-        $collection = $labelMapper->query("SELECT DISTINCT(name) FROM labels");
-        $labels     = array();
-        foreach ($collection as $r)
-            array_push($labels, $r->name);
-
-        return $labels;
-    }
-
-    /**
-     * Get how many documents there are that does not contain a label
-     * grouped by label
-     *
-     * @return array
-     */
-    public function getInverseTotalDocsGroupByLabel()
-    {
-        $docCounts = $this->getTotalDocsGroupByLabel();
-        $totalDocs = $this->getTotalDocs();
-
-        $docInverseCounts = array();
-        foreach ($docCounts as $key => $item) {
-            $docInverseCounts[ $key ] = $totalDocs - $item;
-        }
-
-        return $docInverseCounts;
-    }
-
-    /**
-     * Get how many times we have seen this word before
-     *
-     * @param $word
-     *
-     * @return int
-     */
-    public function getWordCount($word)
-    {
-        $wordMapper = $this->db->mapper('Documer\Entity\Word');
-
-        return count(
-            $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name= :word",
-                               [
-                                   'word' => $word
-                               ])
-        );
-    }
-
-    /**
-     * Get the probability that this word shows up in a LABEL document
-     *
-     * @param $word
-     * @param $label
-     *
-     * @return float
-     */
-    public function getWordProbabilityWithLabel($word, $label)
-    {
-        $wordMapper = $this->db->mapper('Documer\Entity\Word');
-
-        $wordProbabilityTemp =
-            $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name=:word AND label=:label",
-                               [
-                                   'word'  => $word,
-                                   'label' => $label,
-                               ]);
-
-        $docCounts = $this->getTotalDocsGroupByLabel();
-
-        return $wordProbabilityTemp->first()->total / $docCounts[ $label ];
-    }
-
-    /**
-     * Get the probability that this word shows up in a any other LABEL
-     *
-     * @param $word
-     * @param $label
-     *
-     * @return float
-     */
-    public function getInverseWordProbabilityWithLabel($word, $label)
-    {
-        $wordMapper = $this->db->mapper('Documer\Entity\Word');
-
-        $wordInverseProbabilityTemp =
-            $wordMapper->query("SELECT COUNT(name) AS total FROM words WHERE name=:word AND label <> :label",
-                               [
-                                   'word'  => $word,
-                                   'label' => $label,
-                               ]);
-
-        $docInverseCounts = $this->getInverseTotalDocsGroupByLabel();
-
-        return $wordInverseProbabilityTemp->first()->total / $docInverseCounts[ $label ];
-    }
-
-    /**
-     * Singleton Pattern
-     *
-     * @return Documer
-     */
-    public static function getInstance($spot)
-    {
-        static $instance = null;
-        if (null === $instance) {
-            $instance = new static($spot);
-        }
-
-        return $instance;
+    public function getStorage() {
+        return $this->storage;
     }
 
 }
