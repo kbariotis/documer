@@ -63,4 +63,4 @@ $scores = $documer->guess('What do we know about Socrates?');
 each label.
 
 **Storage Adapters**
-Implement [Documer\Storage\Adapter](src/Documer/Storage/Adapter] to create your own Storage Adapter.
+Implement [Documer\Storage\Adapter](https://github.com/kbariotis/documer/blob/master/src/Storage/Adapter.php] to create your own Storage Adapter.
