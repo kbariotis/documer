@@ -79,16 +79,14 @@ Class Documer
             ',', '!', '?', '.', ']', '[', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', '/', ':', ';', '<',
             '=', '>', '?', '^', '{', '|', '}', '~', '-', '@', '\', ', '_', '`'
         );
-        $str           = str_replace($unwantedChars, ' ', $text);
-        $strToArray    = explode(" ", $str);
-        $finalArray    = array_unique($strToArray);
-
-        $array = array_values($finalArray);
-
-        $result = array_map('trim', $array);
+        $str   = str_replace($unwantedChars, ' ', $text);
+        $array = explode(" ", $str);
+        $array = array_map('trim', $array);
+        $array = array_unique($array);
+        $array = array_values($array);
 
         $clean = array();
-        foreach ($result as $k)
+        foreach ($array as $k)
             if ($this->startsWithUppercase($k))
                 $clean[ ] = $k;
 
