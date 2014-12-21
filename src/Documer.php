@@ -16,7 +16,7 @@ Class Documer
     {
         mb_internal_encoding("UTF-8");
 
-        if($storage instanceof Adapter)
+        if ($storage instanceof Adapter)
             $this->storage = $storage;
         else
             throw new \Exception('Storage must implement Documer\Storage\Adapter interface.');
@@ -46,10 +46,12 @@ Class Documer
     {
         $keywords = $this->parse($text);
 
-        $this->getStorage()->insertLabel($label);
+        $this->getStorage()
+             ->insertLabel($label);
 
         foreach ($keywords as $k) {
-            $this->getStorage()->insertWord($k, $label);
+            $this->getStorage()
+                 ->insertWord($k, $label);
 
         }
     }
@@ -69,6 +71,7 @@ Class Documer
             ',', '!', '?', '.', ']', '[', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', '/', ':', ';', '<',
             '=', '>', '?', '^', '{', '|', '}', '~', '-', '@', '\', ', '_', '`'
         );
+
         $str   = str_replace($unwantedChars, ' ', $text);
         $array = explode(" ", $str);
         $array = array_map('trim', $array);
@@ -91,14 +94,16 @@ Class Documer
         $scores = array();
         $words  = $this->parse($text);
 
-        $labels = $this->getStorage()->getDistinctLabels();
+        $labels = $this->getStorage()
+                       ->getDistinctLabels();
 
         foreach ($labels as $label) {
             $logSum = 0;
 
             foreach ($words as $word) {
 
-                $wordTotalCount = $this->getStorage()->getWordCount($word);
+                $wordTotalCount = $this->getStorage()
+                                       ->getWordCount($word);
 
                 if ($wordTotalCount == 0) {
 
@@ -106,8 +111,10 @@ Class Documer
 
                 } else {
 
-                    $wordProbability        = $this->getStorage()->getWordProbabilityWithLabel($word, $label);
-                    $wordInverseProbability = $this->getStorage()->getInverseWordProbabilityWithLabel($word, $label);
+                    $wordProbability        = $this->getStorage()
+                                                   ->getWordProbabilityWithLabel($word, $label);
+                    $wordInverseProbability = $this->getStorage()
+                                                   ->getInverseWordProbabilityWithLabel($word, $label);
 
                     $wordicity = $this->getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability);
                 }
@@ -129,7 +136,13 @@ Class Documer
         return $scores;
     }
 
-    public function getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability) {
+    public function getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability)
+    {
+        $denominator = $wordProbability + $wordInverseProbability;
+
+        if ($denominator == 0 || $wordTotalCount == 0)
+            throw new \Exception('Something went wrong');
+
         /**
          * Bayes Theorem using the above parameters
          *
@@ -137,7 +150,7 @@ Class Documer
          * given that a particular WORD is in it
          *
          */
-        $wordicity = $wordProbability / ($wordProbability + $wordInverseProbability);
+        $wordicity = $wordProbability / $denominator;
 
         /*
          * here 0.5 is the weight, higher training data in the db means higher weight
@@ -158,7 +171,8 @@ Class Documer
      * @param $label
      * @param $text
      */
-    public function is($label, $text) {
+    public function is($label, $text)
+    {
         $scores = $this->guess($text);
 
         $value = max($scores);
@@ -169,7 +183,8 @@ Class Documer
     /**
      * @return Adapter
      */
-    public function getStorage() {
+    public function getStorage()
+    {
         return $this->storage;
     }
 
