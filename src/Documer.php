@@ -29,7 +29,6 @@ Class Documer
      */
     private function startsWithUppercase($str)
     {
-
         $chr = mb_substr($str, 0, 1, "UTF-8");
 
         return mb_strtolower($chr, "UTF-8") != $chr && mb_strlen($str, "UTF-8") > 1;
@@ -43,7 +42,6 @@ Class Documer
      */
     public function train($label, $text)
     {
-
         $keywords = $this->parse($text);
 
         $this->getStorage()->insertLabel($label);
@@ -52,7 +50,6 @@ Class Documer
             $this->getStorage()->insertWord($k, $label);
 
         }
-
     }
 
     /**
@@ -66,7 +63,6 @@ Class Documer
      */
     private function parse($text)
     {
-
         $unwantedChars = array(
             ',', '!', '?', '.', ']', '[', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', '/', ':', ';', '<',
             '=', '>', '?', '^', '{', '|', '}', '~', '-', '@', '\', ', '_', '`'
@@ -83,7 +79,6 @@ Class Documer
                 $clean[ ] = $k;
 
         return array_values($clean);
-
     }
 
     /*
@@ -91,7 +86,6 @@ Class Documer
      */
     public function guess($text)
     {
-
         $scores = array();
         $words  = $this->parse($text);
 
@@ -179,4 +173,3 @@ Class Documer
 
 }
 
-?>
