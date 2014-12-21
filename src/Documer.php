@@ -14,6 +14,8 @@ Class Documer
 
     function __construct($storage)
     {
+        mb_internal_encoding("UTF-8");
+
         if($storage instanceof Adapter)
             $this->storage = $storage;
         else
