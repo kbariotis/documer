@@ -116,7 +116,13 @@ Class Documer
                     $wordInverseProbability = $this->getStorage()
                                                    ->getInverseWordProbabilityWithLabel($word, $label);
 
-                    $wordicity = $this->getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability);
+                    /**
+                     * Prevent division with zero
+                     */
+                    if ($wordProbability == 0 || $wordInverseProbability == 0)
+                        continue;
+
+                    $wordicity = $this->getWordicity($wordTotalCount, $wordProbability, $wordInverseProbability);
                 }
 
                 /**
@@ -136,12 +142,9 @@ Class Documer
         return $scores;
     }
 
-    public function getWordicitiy($wordTotalCount, $wordProbability, $wordInverseProbability)
+    public function getWordicity($wordTotalCount, $wordProbability, $wordInverseProbability)
     {
         $denominator = $wordProbability + $wordInverseProbability;
-
-        if ($denominator == 0 || $wordTotalCount == 0)
-            throw new \Exception('Something went wrong');
 
         /**
          * Bayes Theorem using the above parameters
