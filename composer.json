@@ -12,7 +12,12 @@
       "homepage": "http://kostasbariotis.com"
     }
   ],
-  "require": {},
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
   "autoload": {
     "psr-4": {
       "Documer\\": "src/"
