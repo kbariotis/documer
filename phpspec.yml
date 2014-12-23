@@ -1,0 +1,9 @@
+suites:
+    documer_suite:
+        namespace: Documer
+    #    spec_prefix: documer_spec
+
+    # shortcut for
+    # my_suite:
+    #     namespace: The\Namespace
+    #my_suite: The\Namespace
