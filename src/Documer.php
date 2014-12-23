@@ -119,7 +119,7 @@ Class Documer
                     /**
                      * Prevent division with zero
                      */
-                    if ($wordProbability == 0 || $wordInverseProbability == 0)
+                    if ($wordProbability + $wordInverseProbability == 0)
                         continue;
 
                     $wordicity = $this->getWordicity($wordTotalCount, $wordProbability, $wordInverseProbability);
