@@ -42,13 +42,7 @@ class Memory implements Adapter
      */
     public function getDistinctLabels()
     {
-
-        $results = array();
-        foreach ($this->labels as $l)
-            if (!in_array($l, $results))
-                $results[ ] = $l;
-
-        return $results;
+        return array_unique($this->labels);
     }
 
     /**
